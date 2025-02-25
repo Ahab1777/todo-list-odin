@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List - Odin Project</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1 class="">My TODOs</h1>
+        </div>
+        <div class="new-todo-container">
+            <button class="new-todo-btn">Add new TODO</button>
+            <button class="clear-storage-btn" onclick="clearLocalStorage()">Clear Storage</button>
+            <script>
+                function clearLocalStorage() {
+                    localStorage.clear();
+                    alert('Local storage cleared!');
+                }
+            </script>
+            
+        </div>
+        <div class="todo-list-container">
+
+        </div>
+    </div>
+    
+</body>
+</html>
