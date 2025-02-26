@@ -24,6 +24,7 @@ export default function createNewTodoModal() {
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
+
                     
                     <button type="submit">Add TODO</button>
                 </form>

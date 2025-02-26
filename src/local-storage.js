@@ -8,7 +8,7 @@ const PROJECT_LIST_KEY = "myProjectList";
 export function saveTodosToLocalStorage(todos) {
     const todosString = JSON.stringify(todos);
     localStorage.setItem(TODOS_STORAGE_KEY, todosString);
-}
+} 
 
 //get todos from local storage
 export function loadTodosFromLocalStorage() {
@@ -20,7 +20,8 @@ export function loadTodosFromLocalStorage() {
             todo._description,
             todo._dueDate,
             todo._priority,
-            todo._notes
+            todo._notes,
+            todo._project
         ));
     }
     return [];

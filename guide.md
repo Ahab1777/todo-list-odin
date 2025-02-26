@@ -38,5 +38,13 @@ User should be able to:
     - cin case of project deletion, all todos within it will also be deleted
     - store project list on localStorage
     - add project logic to todo class and local-storage todos logic
-
+    -prevent same project name to be added more than once
+    - on page load, each todo must have its project loaded correctly
+    
 - after editing a todo and trying to reedit it, the fille info is incorrect
+
+-new-todo-modal.js need a field to set the projects based on existing list of projects
+
+-re-renderpage function
+
+-fix the issue where every time the JSON is parsed, the date is renewed
