@@ -16,7 +16,7 @@ Your ‘todos’ are going to be objects that you’ll want to dynamically creat
 When a user first opens the app, there should be some sort of ‘default’ project to which all of their todos are put. Users should be able to create new projects and choose which project their todos go into.
 
 ## Separate logic and DOM-functionalities
-Focus on crating different modules
+Focus on creating different modules
 
 ## UX
 User should be able to:
@@ -35,5 +35,3 @@ User should be able to:
 ## WIP
 - create checklist logic
 - create project logic so that user can create new projects, which will become available at the newTodo form for selections
-- implement localStorage in the place of the todos array on index.js
-- implement todo deletion 

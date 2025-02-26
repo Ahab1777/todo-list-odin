@@ -1,8 +1,10 @@
 import Todo from "./todo-class";
 import { todos } from "./index";
 import displayTodos from "./todo-list";
+import { saveTodosToLocalStorage, loadTodosFromLocalStorage, addTodoToLocalStorage } from "./local-storage";
 
 export default function createNewTodoModal() {
+    //create new todo modal
     const newTodoModal = document.createElement('dialog');
     newTodoModal.innerHTML = `<div>
                 <button class="close">X</button>
@@ -27,10 +29,12 @@ export default function createNewTodoModal() {
                 </form>
             </div>`;
 
+    //close modal
     newTodoModal.querySelector('.close').addEventListener('click', () => {
         newTodoModal.close();
     });
 
+    //add new todo
     newTodoModal.querySelector('form').addEventListener('submit', (e) => {
         e.preventDefault();
         const title = e.target.querySelector('#title').value;
@@ -41,8 +45,8 @@ export default function createNewTodoModal() {
         //const project = 'default';
         
         const newTodo = new Todo(title, description, dueDate, priority, notes);
-        todos.push(newTodo);
-        console.log(todos);
+        addTodoToLocalStorage(newTodo);
+        console.log(loadTodosFromLocalStorage());
         displayTodos();
         newTodoModal.close();
 
