@@ -1,16 +1,18 @@
 import Todo from "./todo-class";
 
-const STORAGE_KEY = "myTodoArrays";
+const TODOS_STORAGE_KEY = "myTodoArrays";
+const PROJECT_LIST_KEY = "myProjectList";
 
+//Todos
 //save todos to local storage
 export function saveTodosToLocalStorage(todos) {
     const todosString = JSON.stringify(todos);
-    localStorage.setItem(STORAGE_KEY, todosString);
+    localStorage.setItem(TODOS_STORAGE_KEY, todosString);
 }
 
 //get todos from local storage
 export function loadTodosFromLocalStorage() {
-    const todosString = localStorage.getItem(STORAGE_KEY);
+    const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
     if (todosString) {
         const todos = JSON.parse(todosString);
         return todos.map(todo => new Todo(
@@ -37,3 +39,43 @@ export function deleteTodoFromLocalStorage(index) {
     todosList.splice(index, 1);
     saveTodosToLocalStorage(todosList);
 }
+
+
+//Projects
+//save projects to local storage
+export function saveProjectsToLocalStorage(projectArray) {
+    const projectsString = JSON.stringify(projectArray);
+    localStorage.setItem(PROJECT_LIST_KEY, projectsString);
+}
+
+//get projects from local storage
+export function loadProjectsFromLocalStorage() {
+    const projectListString = localStorage.getItem(PROJECT_LIST_KEY);
+    if (projectListString) {
+        return JSON.parse(projectListString);
+    }
+    return [];
+}
+
+//add project to local storage
+export function addProjectToLocalStorage(projectToBeAdded) {
+    const projectList = loadProjectsFromLocalStorage();
+    projectList.push(projectToBeAdded);
+    saveProjectsToLocalStorage(projectList);
+}
+
+
+//delete project (and all todos within it) from local storage based on projects index
+export function deleteProjectFromLocalStorage(targetProject) {
+    const todosList = loadTodosFromLocalStorage();
+    //delete all todos within the project
+    todosList.forEach((todo, todoIndex) => {
+        if (todo.getProject() === targetProject) {
+            deleteTodoFromLocalStorage(todoIndex);
+        }
+    });
+    //delete project
+    projectList.splice(index, 1);
+    saveProjectsToLocalStorage(projectList);
+}
+

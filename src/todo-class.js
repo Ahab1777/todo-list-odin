@@ -13,6 +13,10 @@ export default class Todo {
         this._creationDate = formatISO(new Date());
     }
 
+    setProject(project) {
+        this._project = project;
+    }
+
     getTitle() {
         return this._title;
     }
@@ -35,5 +39,9 @@ export default class Todo {
 
     getChecklist() {
         return this._checklist;
+    }
+
+    getProject() {
+        return this._project;
     }
 }

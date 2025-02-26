@@ -34,4 +34,9 @@ User should be able to:
 
 ## WIP
 - create checklist logic
-- create project logic so that user can create new projects, which will become available at the newTodo form for selections
+- create project logic so that user can create new projects, which will become available at the newTodo form for selections:
+    - cin case of project deletion, all todos within it will also be deleted
+    - store project list on localStorage
+    - add project logic to todo class and local-storage todos logic
+
+- after editing a todo and trying to reedit it, the fille info is incorrect

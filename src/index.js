@@ -2,6 +2,7 @@ import Todo from "./todo-class";
 import createNewTodoModal from "./new-todo-modal";
 import displayTodos from "./todo-list";
 import editTodoModal from "./edit-todo-modal";
+import { loadTodosFromLocalStorage, deleteTodoFromLocalStorage } from "./local-storage";
 
 export const todos = [];
 
@@ -13,6 +14,9 @@ newTodoBtn.addEventListener("click", () => {
     newTodoContainer.appendChild(modal);
     modal.showModal();
 });
+
+//new project button
+const newProjectForm = document.querySelector(".new-project-form");
 
 
 
