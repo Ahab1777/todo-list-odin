@@ -43,12 +43,12 @@ export function deleteTodoFromLocalStorage(index) {
 
 //Projects
 //save projects to local storage
-export function saveProjectsToLocalStorage(projectArray) {
+function saveProjectsToLocalStorage(projectArray) {
     const projectsString = JSON.stringify(projectArray);
     localStorage.setItem(PROJECT_LIST_KEY, projectsString);
 }
 
-//get projects from local storage
+//load projects from local storage
 export function loadProjectsFromLocalStorage() {
     const projectListString = localStorage.getItem(PROJECT_LIST_KEY);
     if (projectListString) {
@@ -65,17 +65,21 @@ export function addProjectToLocalStorage(projectToBeAdded) {
 }
 
 
-//delete project (and all todos within it) from local storage based on projects index
-export function deleteProjectFromLocalStorage(targetProject) {
+//delete project (and all todos within it) from local storage based on projects name
+export function deleteProjectFromLocalStorage(projectName) {
     const todosList = loadTodosFromLocalStorage();
     //delete all todos within the project
     todosList.forEach((todo, todoIndex) => {
-        if (todo.getProject() === targetProject) {
+        if (todo.getProject() === projectName) {
             deleteTodoFromLocalStorage(todoIndex);
         }
     });
-    //delete project
-    projectList.splice(index, 1);
+    //delete project from project list based on its name
+    const projectList = loadProjectsFromLocalStorage();
+    const projectIndex = projectList.indexOf(projectName);
+    projectList.splice(projectIndex, 1);
     saveProjectsToLocalStorage(projectList);
+    
+    
 }
 
