@@ -25,9 +25,9 @@ export default function editTodoModal(todoIndex) {
                     
                     <label for="priority">Priority:</label>
                     <select id="priority" name="priority" required>
-                        <option value="low" ${targetTodo.getPriority === 'low' ? 'selected' : ''}>Low</option>
-                        <option value="medium" ${targetTodo.getPriority === 'medium' ? 'selected' : ''}>Medium</option>
-                        <option value="high" ${targetTodo.getPriority === 'high' ? 'selected' : ''}>High</option>
+                        <option value="low" ${targetTodo.getPriority() === 'low' ? 'selected' : ''}>Low</option>
+                        <option value="medium" ${targetTodo.getPriority() === 'medium' ? 'selected' : ''}>Medium</option>
+                        <option value="high" ${targetTodo.getPriority() === 'high' ? 'selected' : ''}>High</option>
                     </select>
                     
                     <button type="submit">Save TODO</button>
@@ -35,8 +35,10 @@ export default function editTodoModal(todoIndex) {
             </div>`;
 
     //substitute old version of todo for the new edited one
+    
     editTodoModal.querySelector('form').addEventListener('submit', (e) => {
         e.preventDefault();
+        const editTodoForm = editTodoModal.querySelector('form');
         const title = e.target.querySelector('#title').value;
         const description = e.target.querySelector('#description').value;
         const dueDate = e.target.querySelector('#due-date').value;
@@ -48,10 +50,11 @@ export default function editTodoModal(todoIndex) {
         todosList[todoIndex] = newEditedTodo;
         saveTodosToLocalStorage(todosList);
         displayTodos();
+        editTodoForm.reset();
         editTodoModal.close();
     });
 
-    //close modal
+    //close modal btn logic
     editTodoModal.querySelector('.close-modal-btn').addEventListener('click', () => {
         editTodoModal.close();
     });

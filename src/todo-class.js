@@ -1,16 +1,14 @@
-import { formatISO } from "date-fns";
-
 
 export default class Todo {
-    constructor(title, description, dueDate, priority, project, notes) {
+    constructor(title, description, dueDate, priority, project, notes, checklist, creationDate) {
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._priority = priority;
         this._notes = notes;
-        this._checklist = [];
+        this._checklist = checklist;
         this._project = project;
-        this._creationDate = formatISO(new Date());
+        this._creationDate = creationDate;
     }
 
     setProject(project) {

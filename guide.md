@@ -48,3 +48,5 @@ User should be able to:
 -re-renderpage function
 
 -fix the issue where every time the JSON is parsed, the date is renewed
+
+-create note logic within new-todo-modal.js

@@ -2,6 +2,7 @@ import Todo from "./todo-class";
 import { todos } from "./index";
 import displayTodos from "./todo-list";
 import { saveTodosToLocalStorage, loadTodosFromLocalStorage, addTodoToLocalStorage } from "./local-storage";
+import { formatISO } from 'date-fns';
 
 export default function createNewTodoModal() {
     //create new todo modal
@@ -43,9 +44,11 @@ export default function createNewTodoModal() {
         const dueDate = e.target.querySelector('#due-date').value;
         const priority = e.target.querySelector('#priority').value;
         const notes = '';
-        //const project = 'default';
+        const project = 'default';
+        const checklist = [];
+        const creationDate = formatISO(new Date())
         
-        const newTodo = new Todo(title, description, dueDate, priority, notes);
+        const newTodo = new Todo(title, description, dueDate, priority, project, notes, checklist, creationDate);
         addTodoToLocalStorage(newTodo);
         console.log(loadTodosFromLocalStorage());
         displayTodos();

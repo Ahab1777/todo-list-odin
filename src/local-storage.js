@@ -20,8 +20,10 @@ export function loadTodosFromLocalStorage() {
             todo._description,
             todo._dueDate,
             todo._priority,
+            todo._project,
             todo._notes,
-            todo._project
+            todo._checklist,
+            todo._creationDate
         ));
     }
     return [];
@@ -55,7 +57,7 @@ export function loadProjectsFromLocalStorage() {
     if (projectListString) {
         return JSON.parse(projectListString);
     }
-    return [];
+    return ['default'];
 }
 
 //add project to local storage

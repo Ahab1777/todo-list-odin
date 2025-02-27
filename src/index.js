@@ -4,6 +4,7 @@ import displayTodos from "./todo-list";
 import editTodoModal from "./edit-todo-modal";
 import { addProjectToLocalStorage, loadProjectsFromLocalStorage, deleteProjectFromLocalStorage } from "./local-storage";
 export const todos = [];
+import indexStyles from "./index.css";
 
 //new todo modal
 const newTodoBtn = document.querySelector(".new-todo-btn");
@@ -29,6 +30,7 @@ const projects = loadProjectsFromLocalStorage();
 projects.forEach((project) => {
     const projectItemOption = document.createElement("option");
     projectItemOption.classList.add("project-item");
+    projectItemOption.value = project;
     projectItemOption.innerHTML = `
         <span>${project}</span>
     `;
@@ -41,6 +43,13 @@ deleteProjectForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const projectToDelete = e.target.querySelector("#project-list").value;
     deleteProjectFromLocalStorage(projectToDelete);
+});
+
+//display todo-list
+const currentProject = document.querySelector("#project-list");
+currentProject.addEventListener("change", () => {
+    const targetProject = currentProject.value;
+    displayTodos(targetProject);
 });
 
 

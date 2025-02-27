@@ -1,13 +1,15 @@
-import { loadTodosFromLocalStorage, deleteTodoFromLocalStorage } from "./local-storage.js";
+import { loadTodosFromLocalStorage, deleteTodoFromLocalStorage, saveTodosToLocalStorage } from "./local-storage.js";
 import editTodoModal from "./edit-todo-modal.js";
 import { loadProjectsFromLocalStorage } from "./local-storage.js";
-import  {saveTodosToLocalStorage } from "./local-storage.js";
 
-export default function displayTodos() {
+export default function displayTodos(project = "default") {
     const todoList = document.querySelector(".todo-list-container");
     todoList.innerHTML = "";
-    const todosList = loadTodosFromLocalStorage();
-    todosList.forEach((todo, index) => {
+    const todosObjectList = loadTodosFromLocalStorage();
+    todosObjectList.forEach((todo, index) => {
+        if (todo.getProject() !== project) {
+            return;
+        }
         const todoDiv = document.createElement("div");
         todoDiv.classList.add("todo");
         todoDiv.innerHTML = `
@@ -24,12 +26,14 @@ export default function displayTodos() {
         <button class="delete-todo-btn" data-index="${index}">Delete</button>
         <button class="edit-todo-btn" data-index="${index}">Edit</button>
         `;
+
         // delete todo button logic
         todoDiv.querySelector(".delete-todo-btn").addEventListener("click", (event) => {
             const targetIndex = event.target.getAttribute("data-index");
             deleteTodoFromLocalStorage(targetIndex);
             displayTodos();
         });
+
         //edit todo button logic
         todoDiv.querySelector(".edit-todo-btn").addEventListener("click", (event) => {
             const targetIndex = event.target.getAttribute("data-index");
@@ -45,6 +49,7 @@ export default function displayTodos() {
         projects.forEach((project) => {
             const projectItemOption = document.createElement("option");
             projectItemOption.classList.add("project-item-option");
+            projectItemOption.value = project;
             projectItemOption.selected = todo.getProject() === project;
             projectItemOption.innerHTML = `
                 <span>${project}</span>
@@ -56,9 +61,8 @@ export default function displayTodos() {
         todoDiv.querySelector("#set-project-form").addEventListener("submit", (e) => {
             e.preventDefault();
             const project = e.target.querySelector("#set-project-list").value;
-            const todosList = loadTodosFromLocalStorage();
-            todosList[index].setProject(project);
-            saveTodosToLocalStorage(todosList);
+            todosObjectList[index].setProject(project);
+            saveTodosToLocalStorage(todosObjectList);
         });        
 
 
