@@ -42,4 +42,8 @@ export default class Todo {
     getProject() {
         return this._project;
     }
+
+    getCreationDate() {
+        return this._creationDate;
+    }
 }

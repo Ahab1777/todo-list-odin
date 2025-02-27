@@ -10,9 +10,9 @@ export default function editTodoModal(todoIndex) {
     console.log(targetTodo);
 
     //open filled todo modal
-    const editTodoModal = document.createElement('dialog');
-    editTodoModal.innerHTML = `<div>
-                <button class="close-modal-btn">X</button>
+    const editTodoContainer = document.createElement('div');
+    editTodoContainer.innerHTML = `<div>
+                <button class="close-modal-btn">Cancel</button>
                 <form id="edit-todo-form">
                     <label for="title">Title:</label>
                     <input value="${targetTodo.getTitle()}" type="text" id="title" name="title" required>
@@ -29,6 +29,9 @@ export default function editTodoModal(todoIndex) {
                         <option value="medium" ${targetTodo.getPriority() === 'medium' ? 'selected' : ''}>Medium</option>
                         <option value="high" ${targetTodo.getPriority() === 'high' ? 'selected' : ''}>High</option>
                     </select>
+
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes">${targetTodo.getNotes()}</textarea>
                     
                     <button type="submit">Save TODO</button>
                 </form>
@@ -36,28 +39,30 @@ export default function editTodoModal(todoIndex) {
 
     //substitute old version of todo for the new edited one
     
-    editTodoModal.querySelector('form').addEventListener('submit', (e) => {
+    editTodoContainer.querySelector('form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const editTodoForm = editTodoModal.querySelector('form');
+        const editTodoForm = editTodoContainer.querySelector('form');
         const title = e.target.querySelector('#title').value;
         const description = e.target.querySelector('#description').value;
         const dueDate = e.target.querySelector('#due-date').value;
         const priority = e.target.querySelector('#priority').value;
-        const notes = '';
-        //const project = 'default';
+        const notes = e.target.querySelector('#notes').value;
+        const project = targetTodo.getProject();
+        const checklist = targetTodo.getChecklist();
+        const creationDate = targetTodo.getCreationDate();
         
-        const newEditedTodo = new Todo(title, description, dueDate, priority, notes);
+        const newEditedTodo = new Todo(title, description, dueDate, priority, project, notes, checklist, creationDate);
         todosList[todoIndex] = newEditedTodo;
         saveTodosToLocalStorage(todosList);
-        displayTodos();
         editTodoForm.reset();
-        editTodoModal.close();
+        editTodoContainer.remove();
+        displayTodos();
     });
 
     //close modal btn logic
-    editTodoModal.querySelector('.close-modal-btn').addEventListener('click', () => {
-        editTodoModal.close();
+    editTodoContainer.querySelector('.close-modal-btn').addEventListener('click', () => {
+        editTodoContainer.remove();
     });
 
-    return editTodoModal;
+    return editTodoContainer;
 }
