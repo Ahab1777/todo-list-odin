@@ -12,7 +12,6 @@ export default function editTodoModal(todoIndex) {
     //open filled todo modal
     const editTodoContainer = document.createElement('div');
     editTodoContainer.innerHTML = `<div>
-                <button class="close-modal-btn">Cancel</button>
                 <form id="edit-todo-form">
                     <label for="title">Title:</label>
                     <input value="${targetTodo.getTitle()}" type="text" id="title" name="title" required>
@@ -34,6 +33,8 @@ export default function editTodoModal(todoIndex) {
                     <textarea id="notes" name="notes">${targetTodo.getNotes()}</textarea>
                     
                     <button type="submit">Save TODO</button>
+                    <button class="close-modal-btn">Cancel</button>
+
                 </form>
             </div>`;
 

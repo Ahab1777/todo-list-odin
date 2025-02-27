@@ -1,6 +1,7 @@
 import { loadTodosFromLocalStorage, deleteTodoFromLocalStorage, saveTodosToLocalStorage } from "./local-storage.js";
 import editTodoModal from "./edit-todo-modal.js";
 import { loadProjectsFromLocalStorage } from "./local-storage.js";
+import ChecklistItem from "./checklist-class.js";
 
 export default function displayTodos(project = "default") {
     const todoList = document.querySelector(".todo-list-container");
@@ -28,6 +29,28 @@ export default function displayTodos(project = "default") {
         <div class="edit-container"></div>
         `;
 
+        //render checklist
+        const checklist = todo.getChecklist();
+        const checklistContainer = document.createElement("div");
+        checklistContainer.classList.add("checklist-container");
+        checklist.forEach((checklistItem) => {
+            const checklistItemDiv = document.createElement("div");
+            checklistItemDiv.classList.add("checklist-item");
+            checklistItemDiv.innerHTML = `
+                <input type="checkbox" ${checklistItem.getIsDone() ? "checked" : ""}>
+                <label>${checklistItem.getItemTitle()}</label>
+            `;
+
+            checklistItemDiv.querySelector("input").addEventListener("change", (event) => {
+                checklistItem.setIsDone(event.target.checked);
+                saveTodosToLocalStorage(todosObjectList);
+            });
+
+
+            checklistContainer.appendChild(checklistItemDiv);
+        });
+        todoDiv.appendChild(checklistContainer);
+
         // delete todo button logic
         todoDiv.querySelector(".delete-todo-btn").addEventListener("click", (event) => {
             const targetIndex = event.target.getAttribute("data-index");
@@ -41,7 +64,6 @@ export default function displayTodos(project = "default") {
             const editScreen = editTodoModal(targetIndex);
             const editContainer = document.querySelector(".edit-container");
             editContainer.appendChild(editScreen);
-            //modal.showModal();
         });
 
         //load project list into dropdown menu

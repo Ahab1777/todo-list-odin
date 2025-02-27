@@ -18,10 +18,23 @@ newTodoBtn.addEventListener("click", () => {
 //new project button
 const newProjectForm = document.querySelector("#new-project-form");
 newProjectForm.addEventListener("submit", (e) => {
+    //user should not be able to add same project name twice
     e.preventDefault();
+    //check if project already exists
+    const currentProjectList = loadProjectsFromLocalStorage();
+    currentProjectList.forEach((project) => {
+        if (project === e.target.querySelector("#project-name").value) {
+            alert("Project already exists!");
+            return;
+        }
+    });
+    
     const projectInput = e.target.querySelector("#project-name").value;
     console.log(projectInput);
     addProjectToLocalStorage(projectInput);
+    const inputField = document.querySelector("#project-name");
+    inputField.value = "";
+
 });
 
 //list all projects for deletion

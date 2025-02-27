@@ -1,4 +1,5 @@
 import Todo from "./todo-class";
+import ChecklistItem from "./checklist-class";
 
 const TODOS_STORAGE_KEY = "myTodoArrays";
 const PROJECT_LIST_KEY = "myProjectList";
@@ -15,16 +16,21 @@ export function loadTodosFromLocalStorage() {
     const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
     if (todosString) {
         const todos = JSON.parse(todosString);
-        return todos.map(todo => new Todo(
-            todo._title,
-            todo._description,
-            todo._dueDate,
-            todo._priority,
-            todo._project,
-            todo._notes,
-            todo._checklist,
-            todo._creationDate
-        ));
+        return todos.map(todo => {
+            const checklist = todo._checklist.map(checklistItem => {
+                return new ChecklistItem(checklistItem._itemTitle, checklistItem._isDone);
+            });
+            return new Todo(
+                todo._title,
+                todo._description,
+                todo._dueDate,
+                todo._priority,
+                todo._project,
+                todo._notes,
+                checklist,
+                todo._creationDate
+            );
+        });
     }
     return [];
 }
