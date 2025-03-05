@@ -69,8 +69,14 @@ export function loadProjectsFromLocalStorage() {
 //add project to local storage
 export function addProjectToLocalStorage(projectToBeAdded) {
     const projectList = loadProjectsFromLocalStorage();
+    //check if project already exists
+    if (projectList.includes(projectToBeAdded)) {
+        console.log('Project already exists');
+        return;
+    }
     projectList.push(projectToBeAdded);
     saveProjectsToLocalStorage(projectList);
+
 }
 
 

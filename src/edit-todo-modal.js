@@ -57,7 +57,7 @@ export default function editTodoModal(todoIndex) {
         saveTodosToLocalStorage(todosList);
         editTodoForm.reset();
         editTodoContainer.remove();
-        displayTodos();
+        displayTodos(project);
     });
 
     //close modal btn logic

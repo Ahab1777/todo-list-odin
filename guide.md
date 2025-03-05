@@ -33,20 +33,11 @@ User should be able to:
     - localStorage uses JSON to send and store data, and when you retrieve the data, it will also be in JSON format. Keep in mind you cannot store functions in JSON, so you’ll have to figure out how to add methods back to your object properties once you fetch them. Good luck!
 
 ## WIP
-- create checklist logic
-- create project logic so that user can create new projects, which will become available at the newTodo form for selections:
-    - cin case of project deletion, all todos within it will also be deleted
-    - store project list on localStorage
-    - add project logic to todo class and local-storage todos logic
-    -prevent same project name to be added more than once
-    - on page load, each todo must have its project loaded correctly
     
-- after editing a todo and trying to reedit it, the fille info is incorrect
-
--new-todo-modal.js need a field to set the projects based on existing list of projects
-
 -re-renderpage function
 
--fix the issue where every time the JSON is parsed, the date is renewed
+-clicking on 'set project' rerenders pages
 
--create note logic within new-todo-modal.js
+-adding new project re-renders page
+
+- create "all projects" categories
